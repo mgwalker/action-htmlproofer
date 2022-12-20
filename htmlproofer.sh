@@ -21,9 +21,10 @@ head -n -2 raw-errors.txt > errors.txt
 
 # Loop over each line in the errors file...
 while read LINE; do
-  if [[ "$LINE" =~ ^\*[[:space:]]At[[:space:]]([^:]*) ]]; then
+  if [[ "$LINE" =~ ^\*[[:space:]]At[[:space:]]([^:]+):([^:]+) ]]; then
     # This line indicates a file with an error in it, so save off the page name
     PAGE="${BASH_REMATCH[1]}"
+    LINE_NUMBER="${BASH_REMATCH[2]}"
   elif [[ "$LINE" =~ ^For[[:space:]]the ]]; then
     # This line indicates the start of a new type-of-test. We don't care.
     :
@@ -32,7 +33,7 @@ while read LINE; do
     # text. Now we can output it! Get rid of commas from the htmlproofer output,
     # though: GitHub uses those as delimiters and they'll mess up the annotation
     # +output.
-    echo "::error title=${LINE//,},file=${PAGE//,}::in ${PAGE//,}"
+    echo "::error title=${LINE//,},line=${LINE_NUMBER//,},file=${PAGE//,}::in ${PAGE//,}"
   fi
 done < errors.txt
 
