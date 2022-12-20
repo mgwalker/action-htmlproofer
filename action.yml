@@ -1,6 +1,7 @@
 name: htmlproofer-action
 description: |
   Runs htmlproofer on some HTML files.
+
 inputs:
   path:
     description: |
@@ -11,6 +12,7 @@ inputs:
     description: |
       Arguments and/or flags to pass into htmlproofer.
     default: "--disable-external"
+
 runs:
   using: 'composite'
   steps:
@@ -21,3 +23,7 @@ runs:
       shell: bash
     - run: ${GITHUB_ACTION_PATH}/htmlproofer.sh "${{ inputs.path }}" "${{ inputs.args }}"
       shell: bash
+
+branding:
+  icon: link
+  color: gray-dark
