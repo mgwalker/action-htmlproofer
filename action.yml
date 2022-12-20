@@ -1,4 +1,4 @@
-name: htmlproofer
+name: htmlproofer-action
 description: |
   Runs htmlproofer on some HTML files.
 inputs:
