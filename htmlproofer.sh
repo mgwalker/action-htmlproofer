@@ -32,8 +32,14 @@ while read LINE; do
     # text. Now we can output it! Get rid of commas from the htmlproofer output,
     # though: GitHub uses those as delimiters and they'll mess up the annotation
     # +output.
-    echo "::error title=${LINE//,}::in ${PAGE//,}"
+    echo "::error title=${LINE//,},file=${PAGE//,}::in ${PAGE//,}"
   fi
 done < errors.txt
+
+echo "======================================="
+echo "htmlproofer found the following errors:"
+echo "---------------------------------------"
+cat raw-errors.txt
+echo "======================================="
 
 exit 1
